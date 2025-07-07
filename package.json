@@ -1,0 +1,58 @@
+{
+  "name": "angel-broking-live-data",
+  "version": "2.0.0",
+  "description": "Angel Broking Live Market Data Application with Comprehensive Price Analytics",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "install-all": "npm install && cd server && npm install && cd ../client && npm install",
+    "build": "cd client && npm run build",
+    "stock-search": "node scripts/stock-price-fetcher.js",
+    "stock-interactive": "node scripts/stock-price-fetcher.js --interactive",
+    "sync-files": "node scripts/sync-symbol-master-files.js",
+    "view-stocks": "node scripts/stock-viewer.js",
+    "view-nse": "node scripts/stock-viewer.js nse",
+    "view-bse": "node scripts/stock-viewer.js bse",
+    "search-stock": "node scripts/stock-viewer.js search",
+    "analytics-demo": "node scripts/price-analytics-demo.js",
+    "analytics-single": "node scripts/price-analytics-demo.js single",
+    "analytics-bulk": "node scripts/price-analytics-demo.js bulk",
+    "analytics-history": "node scripts/price-analytics-demo.js history",
+    "file-stats": "node -e \"require('./src/services/jsonFileService').getStats().then(s => console.log(JSON.stringify(s, null, 2)))\""
+  },
+  "keywords": [
+    "angel-broking",
+    "smartapi",
+    "stock-market",
+    "real-time",
+    "websocket",
+    "market-data",
+    "json-files",
+    "stock-viewer",
+    "price-analytics",
+    "technical-indicators",
+    "52-week-high-low",
+    "monthly-analysis"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.5.0",
+    "cli-table3": "^0.6.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^7.5.0",
+    "node-cron": "^3.0.2",
+    "smartapi-javascript": "^1.0.27",
+    "speakeasy": "^2.0.0",
+    "ws": "^8.13.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

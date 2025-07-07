@@ -1,0 +1,215 @@
+{
+  "info": {
+    "name": "Angel Broking API - Sample Test Data",
+    "description": "Sample data and test scenarios for Angel Broking API testing"
+  },
+  "sampleStocks": [
+    {
+      "token": "3045",
+      "symbol": "RELIANCE",
+      "name": "Reliance Industries Ltd",
+      "exchange": "NSE"
+    },
+    {
+      "token": "2885",
+      "symbol": "TCS",
+      "name": "Tata Consultancy Services Ltd",
+      "exchange": "NSE"
+    },
+    {
+      "token": "1333",
+      "symbol": "HDFCBANK",
+      "name": "HDFC Bank Ltd",
+      "exchange": "NSE"
+    },
+    {
+      "token": "99926004",
+      "symbol": "INFY",
+      "name": "Infosys Ltd",
+      "exchange": "NSE"
+    },
+    {
+      "token": "1594",
+      "symbol": "ICICIBANK",
+      "name": "ICICI Bank Ltd",
+      "exchange": "NSE"
+    },
+    {
+      "token": "17963",
+      "symbol": "ITC",
+      "name": "ITC Ltd",
+      "exchange": "NSE"
+    },
+    {
+      "token": "11536",
+      "symbol": "LT",
+      "name": "Larsen & Toubro Ltd",
+      "exchange": "NSE"
+    },
+    {
+      "token": "1660",
+      "symbol": "KOTAKBANK",
+      "name": "Kotak Mahindra Bank Ltd",
+      "exchange": "NSE"
+    },
+    {
+      "token": "10999",
+      "symbol": "BHARTIARTL",
+      "name": "Bharti Airtel Ltd",
+      "exchange": "NSE"
+    },
+    {
+      "token": "5633",
+      "symbol": "MARUTI",
+      "name": "Maruti Suzuki India Ltd",
+      "exchange": "NSE"
+    }
+  ],
+  "testScenarios": {
+    "authentication": {
+      "description": "Test authentication flow",
+      "steps": [
+        "1. Check auth status (should be false initially)",
+        "2. Generate TOTP",
+        "3. Login with credentials",
+        "4. Verify auth status (should be true)",
+        "5. Test protected endpoints",
+        "6. Logout",
+        "7. Verify auth status (should be false)"
+      ]
+    },
+    "stockSearch": {
+      "description": "Test stock search functionality",
+      "testCases": [
+        {
+          "type": "exact_symbol",
+          "query": "RELIANCE",
+          "expectedResults": "Should return RELIANCE stock"
+        },
+        {
+          "type": "partial_name",
+          "query": "HDFC",
+          "expectedResults": "Should return HDFC related stocks"
+        },
+        {
+          "type": "token_search",
+          "query": "3045",
+          "expectedResults": "Should return RELIANCE by token"
+        },
+        {
+          "type": "case_insensitive",
+          "query": "tcs",
+          "expectedResults": "Should return TCS stock"
+        },
+        {
+          "type": "not_found",
+          "query": "INVALIDSTOCK",
+          "expectedResults": "Should return empty results"
+        }
+      ]
+    },
+    "priceAnalytics": {
+      "description": "Test price analytics endpoints",
+      "testCases": [
+        {
+          "endpoint": "/analytics/live/RELIANCE",
+          "description": "Get live analytics for RELIANCE",
+          "expectedFields": ["currentPrice", "analytics.today", "analytics.week52", "analytics.technicalIndicators"]
+        },
+        {
+          "endpoint": "/analytics/history/TCS?days=30",
+          "description": "Get 30-day price history for TCS",
+          "expectedFields": ["history", "interval", "count"]
+        },
+        {
+          "endpoint": "/analytics/bulk",
+          "description": "Bulk analytics for multiple stocks",
+          "requestBody": {
+            "tokens": [
+              { "token": "3045", "symbol": "RELIANCE", "exchange": "NSE" },
+              { "token": "2885", "symbol": "TCS", "exchange": "NSE" }
+            ]
+          }
+        }
+      ]
+    },
+    "fileOperations": {
+      "description": "Test file-based operations",
+      "testCases": [
+        {
+          "operation": "sync",
+          "endpoint": "/files/sync",
+          "description": "Sync symbol master data"
+        },
+        {
+          "operation": "search",
+          "endpoint": "/files/search?q=RELIANCE",
+          "description": "Search in file data"
+        },
+        {
+          "operation": "stats",
+          "endpoint": "/files/stats",
+          "description": "Get file statistics"
+        },
+        {
+          "operation": "export",
+          "endpoint": "/files/export/symbols?limit=100",
+          "description": "Export symbol data"
+        }
+      ]
+    }
+  },
+  "sampleResponses": {
+    "liveAnalytics": {
+      "success": true,
+      "data": {
+        "symbol": "RELIANCE",
+        "token": "3045",
+        "exchange": "NSE",
+        "currentPrice": {
+          "ltp": 2983.55,
+          "open": 2975.0,
+          "high": 2995.8,
+          "low": 2970.25,
+          "close": 2980.0,
+          "change": 3.55,
+          "changePercent": 0.12,
+          "volume": 1234567
+        },
+        "analytics": {
+          "today": {
+            "dayRange": "₹2970.25 - ₹2995.80",
+            "dayRangePercent": "0.86"
+          },
+          "week52": {
+            "high": 3024.9,
+            "low": 2220.3,
+            "currentVsHigh": "-1.37",
+            "currentVsLow": "34.38"
+          },
+          "technicalIndicators": {
+            "sma20": "2950.25",
+            "sma50": "2890.75",
+            "rsi": "58.32",
+            "macd": "12.45"
+          }
+        }
+      }
+    },
+    "stockSearch": {
+      "success": true,
+      "searchTerm": "RELIANCE",
+      "count": 1,
+      "data": [
+        {
+          "token": "3045",
+          "symbol": "RELIANCE",
+          "name": "Reliance Industries Ltd",
+          "exchange": "NSE",
+          "lot_size": 1,
+          "tick_size": 0.05
+        }
+      ]
+    }
+  }
+}

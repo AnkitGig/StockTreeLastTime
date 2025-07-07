@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Viewer - BSE & NSE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .controls {
+            padding: 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .control-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a6fd8;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-info {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .btn.active {
+            background: #2c3e50;
+            color: white;
+        }
+
+        select {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #6c757d;
+        }
+
+        .stock-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .stock-table th {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .stock-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .stock-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .stock-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .stock-table tr:nth-child(even):hover {
+            background: #e9ecef;
+        }
+
+        .exchange-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .exchange-nse {
+            background: #28a745;
+            color: white;
+        }
+
+        .exchange-bse {
+            background: #dc3545;
+            color: white;
+        }
+
+        .exchange-nfo {
+            background: #ffc107;
+            color: black;
+        }
+
+        .exchange-mcx {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 30px;
+            padding: 20px;
+        }
+
+        .pagination button {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .pagination button:hover {
+            background: #f8f9fa;
+        }
+
+        .pagination button.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .stock-details {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .stock-details h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .detail-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .detail-label {
+            font-weight: bold;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .detail-value {
+            color: #2c3e50;
+            font-size: 1.1rem;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .control-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                min-width: auto;
+            }
+
+            .stats {
+                justify-content: center;
+            }
+
+            .stock-table {
+                font-size: 0.9rem;
+            }
+
+            .stock-table th,
+            .stock-table td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Stock Viewer</h1>
+            <p>Browse BSE & NSE Stocks with Advanced Search</p>
+        </div>
+
+        <div class="controls">
+            <div class="control-row">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search stocks by symbol or name (e.g., RELIANCE, TCS)">
+                    <button class="search-btn" onclick="searchStocks()">🔍</button>
+                </div>
+                
+                <div class="filter-group">
+                    <button class="btn btn-primary active" onclick="filterExchange('ALL')">All</button>
+                    <button class="btn btn-success" onclick="filterExchange('NSE')">NSE</button>
+                    <button class="btn btn-info" onclick="filterExchange('BSE')">BSE</button>
+                    <button class="btn btn-secondary" onclick="filterExchange('NFO')">NFO</button>
+                </div>
+
+                <select id="sortSelect" onchange="sortStocks()">
+                    <option value="symbol,asc">Symbol A-Z</option>
+                    <option value="symbol,desc">Symbol Z-A</option>
+                    <option value="name,asc">Name A-Z</option>
+                    <option value="name,desc">Name Z-A</option>
+                    <option value="exchange,asc">Exchange A-Z</option>
+                </select>
+            </div>
+
+            <div class="stats" id="exchangeStats">
+                <!-- Stats will be populated here -->
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="loading" id="loading">
+                📊 Loading stocks...
+            </div>
+
+            <table class="stock-table" id="stockTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Symbol</th>
+                        <th>Name</th>
+                        <th>Exchange</th>
+                        <th>Token</th>
+                        <th>Lot Size</th>
+                        <th>Instrument</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="stockTableBody">
+                    <!-- Stock data will be populated here -->
+                </tbody>
+            </table>
+
+            <div class="pagination" id="pagination" style="display: none;">
+                <!-- Pagination will be populated here -->
+            </div>
+
+            <div class="stock-details" id="stockDetails">
+                <!-- Stock details will be shown here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        let currentExchange = 'ALL';
+        let currentSearch = '';
+        let currentSort = 'symbol,asc';
+        let totalPages = 1;
+
+        // Initialize the application
+        async function init() {
+            await loadStocks();
+            await loadExchangeStats();
+            
+            // Add enter key listener to search input
+            document.getElementById('searchInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchStocks();
+                }
+            });
+        }
+
+        // Load stocks with current filters
+        async function loadStocks() {
+            try {
+                document.getElementById('loading').style.display = 'block';
+                document.getElementById('stockTable').style.display = 'none';
+                document.getElementById('pagination').style.display = 'none';
+
+                const params = new URLSearchParams({
+                    page: currentPage,
+                    limit: 50,
+                    exchange: currentExchange,
+                    search: currentSearch,
+                    sortBy: currentSort.split(',')[0],
+                    sortOrder: currentSort.split(',')[1]
+                });
+
+                const response = await fetch(`/api/stocks?${params}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    displayStocks(data.data.stocks);
+                    displayPagination(data.data.pagination);
+                    totalPages = data.data.pagination.totalPages;
+                } else {
+                    console.error('Error loading stocks:', data.message);
+                }
+            } catch (error) {
+                console.error('Error loading stocks:', error);
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+            }
+        }
+
+        // Display stocks in table
+        function displayStocks(stocks) {
+            const tbody = document.getElementById('stockTableBody');
+            tbody.innerHTML = '';
+
+            stocks.forEach((stock, index) => {
+                const row = document.createElement('tr');
+                const startIndex = (currentPage - 1) * 50;
+                
+                row.innerHTML = `
+                    <td>${startIndex + index + 1}</td>
+                    <td><strong>${stock.symbol || 'N/A'}</strong></td>
+                    <td>${(stock.name || 'N/A').substring(0, 40)}</td>
+                    <td><span class="exchange-badge exchange-${stock.exchange.toLowerCase()}">${stock.exchange}</span></td>
+                    <td>${stock.token || 'N/A'}</td>
+                    <td>${stock.lot_size || 1}</td>
+                    <td>${(stock.instrumenttype || 'N/A').substring(0, 15)}</td>
+                    <td>
+                        <button class="btn btn-primary" onclick="showStockDetails('${stock.token}', '${stock.symbol}')">
+                            Details
+                        </button>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+
+            document.getElementById('stockTable').style.display = 'table';
+        }
+
+        // Display pagination
+        function displayPagination(pagination) {
+            const paginationDiv = document.getElementById('pagination');
+            paginationDiv.innerHTML = '';
+
+            // Previous button
+            const prevBtn = document.createElement('button');
+            prevBtn.textContent = '← Previous';
+            prevBtn.disabled = !pagination.hasPrev;
+            prevBtn.onclick = () => {
+                if (pagination.hasPrev) {
+                    currentPage--;
+                    loadStocks();
+                }
+            };
+            paginationDiv.appendChild(prevBtn);
+
+            // Page info
+            const pageInfo = document.createElement('span');
+            pageInfo.textContent = `Page ${pagination.currentPage} of ${pagination.totalPages} (${pagination.totalItems.toLocaleString()} stocks)`;
+            pageInfo.style.margin = '0 20px';
+            pageInfo.style.fontWeight = 'bold';
+            paginationDiv.appendChild(pageInfo);
+
+            // Next button
+            const nextBtn = document.createElement('button');
+            nextBtn.textContent = 'Next →';
+            nextBtn.disabled = !pagination.hasNext;
+            nextBtn.onclick = () => {
+                if (pagination.hasNext) {
+                    currentPage++;
+                    loadStocks();
+                }
+            };
+            paginationDiv.appendChild(nextBtn);
+
+            // Page jump input
+            const pageJump = document.createElement('input');
+            pageJump.type = 'number';
+            pageJump.min = 1;
+            pageJump.max = pagination.totalPages;
+            pageJump.value = pagination.currentPage;
+            pageJump.style.width = '80px';
+            pageJump.style.margin = '0 10px';
+            pageJump.style.padding = '5px';
+            pageJump.onchange = () => {
+                const page = parseInt(pageJump.value);
+                if (page >= 1 && page <= pagination.totalPages) {
+                    currentPage = page;
+                    loadStocks();
+                }
+            };
+            paginationDiv.appendChild(pageJump);
+
+            paginationDiv.style.display = 'flex';
+        }
+
+        // Load exchange statistics
+        async function loadExchangeStats() {
+            try {
+                const response = await fetch('/api/stocks/stats/exchanges');
+                const data = await response.json();
+
+                if (data.success) {
+                    displayExchangeStats(data.data);
+                }
+            } catch (error) {
+                console.error('Error loading exchange stats:', error);
+            }
+        }
+
+        // Display exchange statistics
+        function displayExchangeStats(stats) {
+            const statsDiv = document.getElementById('exchangeStats');
+            statsDiv.innerHTML = '';
+
+            const exchanges = ['NSE', 'BSE', 'NFO', 'BFO', 'MCX', 'CDS'];
+            
+            exchanges.forEach(exchange => {
+                if (stats.summary[exchange] > 0) {
+                    const statCard = document.createElement('div');
+                    statCard.className = 'stat-card';
+                    statCard.innerHTML = `
+                        <div class="stat-number">${stats.summary[exchange].toLocaleString()}</div>
+                        <div class="stat-label">${exchange} Stocks</div>
+                    `;
+                    statsDiv.appendChild(statCard);
+                }
+            });
+
+            // Total stocks
+            const totalCard = document.createElement('div');
+            totalCard.className = 'stat-card';
+            totalCard.innerHTML = `
+                <div class="stat-number">${stats.totalStocks.toLocaleString()}</div>
+                <div class="stat-label">Total Stocks</div>
+            `;
+            statsDiv.appendChild(totalCard);
+        }
+
+        // Filter by exchange
+        function filterExchange(exchange) {
+            currentExchange = exchange;
+            currentPage = 1;
+            
+            // Update active button
+            document.querySelectorAll('.filter-group .btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            loadStocks();
+        }
+
+        // Search stocks
+        function searchStocks() {
+            currentSearch = document.getElementById('searchInput').value.trim();
+            currentPage = 1;
+            loadStocks();
+        }
+
+        // Sort stocks
+        function sortStocks() {
+            currentSort = document.getElementById('sortSelect').value;
+            currentPage = 1;
+            loadStocks();
+        }
+
+        // Show stock details
+        async function showStockDetails(token, symbol) {
+            try {
+                const response = await fetch(`/api/stocks/details/${token}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    displayStockDetails(data.data.stock, data.data.priceHistory);
+                } else {
+                    alert('Error loading stock details: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Error loading stock details:', error);
+                alert('Error loading stock details');
+            }
+        }
+
+        // Display stock details
+        function displayStockDetails(stock, priceHistory) {
+            const detailsDiv = document.getElementById('stockDetails');
+            
+            detailsDiv.innerHTML = `
+                <h3>📊 Stock Details: ${stock.symbol}</h3>
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">Symbol</div>
+                        <div class="detail-value">${stock.symbol || 'N/A'}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Name</div>
+                        <div class="detail-value">${stock.name || 'N/A'}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Token</div>
+                        <div class="detail-value">${stock.token || 'N/A'}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Exchange</div>
+                        <div class="detail-value">${stock.exchange || 'N/A'}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Instrument Type</div>
+                        <div class="detail-value">${stock.instrumenttype || 'N/A'}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Lot Size</div>
+                        <div class="detail-value">${stock.lot_size || 'N/A'}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Tick Size</div>
+                        <div class="detail-value">${stock.tick_size || 'N/A'}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">ISIN</div>
+                        <div class="detail-value">${stock.isin || 'N/A'}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Strike Price</div>
+                        <div class="detail-value">${stock.strike || 'N/A'}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Expiry</div>
+                        <div class="detail-value">${stock.expiry || 'N/A'}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Precision</div>
+                        <div class="detail-value">${stock.precision || 'N/A'}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Multiplier</div>
+                        <div class="detail-value">${stock.multiplier || 'N/A'}</div>
+                    </div>
+                </div>
+                ${priceHistory.length > 0 ? `
+                    <h4 style="margin-top: 20px; color: #2c3e50;">Recent Price History</h4>
+                    <div style="background: white; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                        ${priceHistory.map(price => `
+                            <div style="display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #eee;">
+                                <span>${new Date(price.timestamp).toLocaleString()}</span>
+                                <span><strong>₹${price.priceData.ltp}</strong></span>
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+                <button class="btn btn-secondary" onclick="hideStockDetails()" style="margin-top: 15px;">Close Details</button>
+            `;
+            
+            detailsDiv.style.display = 'block';
+            detailsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Hide stock details
+        function hideStockDetails() {
+            document.getElementById('stockDetails').style.display = 'none';
+        }
+
+        // Initialize the application when page loads
+        window.onload = init;
+    </script>
+</body>
+</html>

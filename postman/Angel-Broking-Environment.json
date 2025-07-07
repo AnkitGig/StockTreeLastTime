@@ -1,0 +1,49 @@
+{
+  "id": "angel-broking-env",
+  "name": "Angel Broking Environment",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3001",
+      "description": "Base URL for the Angel Broking API server",
+      "enabled": true
+    },
+    {
+      "key": "apiUrl",
+      "value": "{{baseUrl}}/api",
+      "description": "API base URL",
+      "enabled": true
+    },
+    {
+      "key": "wsUrl",
+      "value": "ws://localhost:3001/ws",
+      "description": "WebSocket URL for real-time data",
+      "enabled": true
+    },
+    {
+      "key": "authToken",
+      "value": "",
+      "description": "Authentication token (auto-populated after login)",
+      "enabled": true
+    },
+    {
+      "key": "watchlistId",
+      "value": "",
+      "description": "Sample watchlist ID for testing",
+      "enabled": true
+    },
+    {
+      "key": "sampleToken",
+      "value": "3045",
+      "description": "Sample stock token (RELIANCE)",
+      "enabled": true
+    },
+    {
+      "key": "sampleSymbol",
+      "value": "RELIANCE",
+      "description": "Sample stock symbol",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment"
+}

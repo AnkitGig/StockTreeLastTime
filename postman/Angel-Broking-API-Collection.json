@@ -1,0 +1,973 @@
+{
+  "info": {
+    "name": "Angel Broking Live Market Data API",
+    "description": "Comprehensive API collection for Angel Broking real-time market data with price analytics",
+    "version": "2.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3001",
+      "type": "string"
+    },
+    {
+      "key": "apiUrl",
+      "value": "{{baseUrl}}/api",
+      "type": "string"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "item": [
+    {
+      "name": "🔐 Authentication",
+      "item": [
+        {
+          "name": "Login to Angel Broking",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{apiUrl}}/auth/login",
+              "host": ["{{apiUrl}}"],
+              "path": ["auth", "login"]
+            },
+            "description": "Authenticate with Angel Broking SmartAPI using TOTP"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Authentication Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/auth/status",
+              "host": ["{{apiUrl}}"],
+              "path": ["auth", "status"]
+            },
+            "description": "Check current authentication status and token validity"
+          },
+          "response": []
+        },
+        {
+          "name": "Generate TOTP",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/auth/totp",
+              "host": ["{{apiUrl}}"],
+              "path": ["auth", "totp"]
+            },
+            "description": "Generate Time-based One-Time Password for authentication"
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/auth/logout",
+              "host": ["{{apiUrl}}"],
+              "path": ["auth", "logout"]
+            },
+            "description": "Logout and clear authentication tokens"
+          },
+          "response": []
+        }
+      ],
+      "description": "Authentication endpoints for Angel Broking SmartAPI"
+    },
+    {
+      "name": "📊 Market Data",
+      "item": [
+        {
+          "name": "Get All Market Data",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/market-data?limit=50",
+              "host": ["{{apiUrl}}"],
+              "path": ["market-data"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Number of records to fetch"
+                }
+              ]
+            },
+            "description": "Get all stored market data with pagination"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Latest Prices",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/market-data/latest",
+              "host": ["{{apiUrl}}"],
+              "path": ["market-data", "latest"]
+            },
+            "description": "Get latest prices for all configured stocks"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Market Data by Symbol",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/market-data/symbol/RELIANCE?limit=100",
+              "host": ["{{apiUrl}}"],
+              "path": ["market-data", "symbol", "RELIANCE"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Number of records to fetch"
+                }
+              ]
+            },
+            "description": "Get market data for a specific symbol"
+          },
+          "response": []
+        },
+        {
+          "name": "Fetch Fresh Market Data",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/market-data/fetch?mode=FULL",
+              "host": ["{{apiUrl}}"],
+              "path": ["market-data", "fetch"],
+              "query": [
+                {
+                  "key": "mode",
+                  "value": "FULL",
+                  "description": "Fetch mode: FULL or LTP"
+                }
+              ]
+            },
+            "description": "Fetch fresh market data from Angel Broking API"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Market Statistics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/market-data/stats",
+              "host": ["{{apiUrl}}"],
+              "path": ["market-data", "stats"]
+            },
+            "description": "Get market data statistics and service status"
+          },
+          "response": []
+        }
+      ],
+      "description": "Market data endpoints for real-time stock prices"
+    },
+    {
+      "name": "📈 Price Analytics",
+      "item": [
+        {
+          "name": "Get Live Price with Analytics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/analytics/live/RELIANCE",
+              "host": ["{{apiUrl}}"],
+              "path": ["analytics", "live", "RELIANCE"]
+            },
+            "description": "Get comprehensive live price analytics for a stock (by symbol or token)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Live Price Analytics by Token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/analytics/live/3045",
+              "host": ["{{apiUrl}}"],
+              "path": ["analytics", "live", "3045"]
+            },
+            "description": "Get live price analytics using stock token"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Bulk Price Analytics",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tokens\": [\n    {\n      \"token\": \"3045\",\n      \"symbol\": \"RELIANCE\",\n      \"exchange\": \"NSE\"\n    },\n    {\n      \"token\": \"2885\",\n      \"symbol\": \"TCS\",\n      \"exchange\": \"NSE\"\n    },\n    {\n      \"token\": \"1333\",\n      \"symbol\": \"HDFCBANK\",\n      \"exchange\": \"NSE\"\n    },\n    {\n      \"token\": \"99926004\",\n      \"symbol\": \"INFY\",\n      \"exchange\": \"NSE\"\n    },\n    {\n      \"token\": \"1594\",\n      \"symbol\": \"ICICIBANK\",\n      \"exchange\": \"NSE\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{apiUrl}}/analytics/bulk",
+              "host": ["{{apiUrl}}"],
+              "path": ["analytics", "bulk"]
+            },
+            "description": "Get price analytics for multiple stocks in one request"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Price History",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/analytics/history/RELIANCE?days=30&interval=daily",
+              "host": ["{{apiUrl}}"],
+              "path": ["analytics", "history", "RELIANCE"],
+              "query": [
+                {
+                  "key": "days",
+                  "value": "30",
+                  "description": "Number of days to fetch"
+                },
+                {
+                  "key": "interval",
+                  "value": "daily",
+                  "description": "Interval: daily, weekly, monthly"
+                }
+              ]
+            },
+            "description": "Get price history with different intervals"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Price History - Weekly",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/analytics/history/TCS?days=90&interval=weekly",
+              "host": ["{{apiUrl}}"],
+              "path": ["analytics", "history", "TCS"],
+              "query": [
+                {
+                  "key": "days",
+                  "value": "90",
+                  "description": "Number of days to fetch"
+                },
+                {
+                  "key": "interval",
+                  "value": "weekly",
+                  "description": "Weekly aggregation"
+                }
+              ]
+            },
+            "description": "Get weekly aggregated price history"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Price History - Monthly",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/analytics/history/HDFCBANK?days=365&interval=monthly",
+              "host": ["{{apiUrl}}"],
+              "path": ["analytics", "history", "HDFCBANK"],
+              "query": [
+                {
+                  "key": "days",
+                  "value": "365",
+                  "description": "Number of days to fetch"
+                },
+                {
+                  "key": "interval",
+                  "value": "monthly",
+                  "description": "Monthly aggregation"
+                }
+              ]
+            },
+            "description": "Get monthly aggregated price history"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Market Overview",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/analytics/market-overview?exchange=NSE&limit=20",
+              "host": ["{{apiUrl}}"],
+              "path": ["analytics", "market-overview"],
+              "query": [
+                {
+                  "key": "exchange",
+                  "value": "NSE",
+                  "description": "Exchange: NSE, BSE, NFO"
+                },
+                {
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Number of stocks to analyze"
+                }
+              ]
+            },
+            "description": "Get market overview with analytics for top stocks"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Top Movers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/analytics/top-movers?type=gainers&exchange=NSE&limit=10",
+              "host": ["{{apiUrl}}"],
+              "path": ["analytics", "top-movers"],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "gainers",
+                  "description": "Type: gainers, losers, active"
+                },
+                {
+                  "key": "exchange",
+                  "value": "NSE",
+                  "description": "Exchange filter"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of stocks"
+                }
+              ]
+            },
+            "description": "Get top gainers, losers, or most active stocks"
+          },
+          "response": []
+        }
+      ],
+      "description": "Advanced price analytics with technical indicators and historical analysis"
+    },
+    {
+      "name": "🔍 Stock Search & Viewer",
+      "item": [
+        {
+          "name": "Get All Stocks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/stocks?page=1&limit=50&exchange=NSE&sortBy=symbol&sortOrder=asc",
+              "host": ["{{apiUrl}}"],
+              "path": ["stocks"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number"
+                },
+                {
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Items per page"
+                },
+                {
+                  "key": "exchange",
+                  "value": "NSE",
+                  "description": "Exchange filter: NSE, BSE, NFO, ALL"
+                },
+                {
+                  "key": "sortBy",
+                  "value": "symbol",
+                  "description": "Sort field: symbol, name, exchange"
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "asc",
+                  "description": "Sort order: asc, desc"
+                }
+              ]
+            },
+            "description": "Get all stocks with filtering, pagination, and sorting"
+          },
+          "response": []
+        },
+        {
+          "name": "Search Stocks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/stocks/search?q=RELIANCE&limit=20&exchange=NSE",
+              "host": ["{{apiUrl}}"],
+              "path": ["stocks", "search"],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "RELIANCE",
+                  "description": "Search term (symbol or name)"
+                },
+                {
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Maximum results"
+                },
+                {
+                  "key": "exchange",
+                  "value": "NSE",
+                  "description": "Exchange filter (optional)"
+                }
+              ]
+            },
+            "description": "Search stocks by symbol or company name"
+          },
+          "response": []
+        },
+        {
+          "name": "Search Stocks - Partial Name",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/stocks/search?q=HDFC&limit=10",
+              "host": ["{{apiUrl}}"],
+              "path": ["stocks", "search"],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "HDFC",
+                  "description": "Partial name search"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Search stocks using partial company name"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Stocks by Exchange - NSE",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/stocks/exchange/NSE?page=1&limit=100&sortBy=symbol&sortOrder=asc",
+              "host": ["{{apiUrl}}"],
+              "path": ["stocks", "exchange", "NSE"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "key": "sortBy",
+                  "value": "symbol"
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "asc"
+                }
+              ]
+            },
+            "description": "Get all NSE stocks with pagination"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Stocks by Exchange - BSE",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/stocks/exchange/BSE?page=1&limit=50",
+              "host": ["{{apiUrl}}"],
+              "path": ["stocks", "exchange", "BSE"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "50"
+                }
+              ]
+            },
+            "description": "Get all BSE stocks"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Stock Details by Symbol",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/stocks/details/RELIANCE",
+              "host": ["{{apiUrl}}"],
+              "path": ["stocks", "details", "RELIANCE"]
+            },
+            "description": "Get detailed information for a specific stock by symbol"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Stock Details by Token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/stocks/details/3045",
+              "host": ["{{apiUrl}}"],
+              "path": ["stocks", "details", "3045"]
+            },
+            "description": "Get detailed information for a specific stock by token"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Exchange Statistics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/stocks/stats/exchanges",
+              "host": ["{{apiUrl}}"],
+              "path": ["stocks", "stats", "exchanges"]
+            },
+            "description": "Get statistics about different exchanges and instrument types"
+          },
+          "response": []
+        }
+      ],
+      "description": "Stock search, filtering, and detailed information endpoints"
+    },
+    {
+      "name": "📁 File Management",
+      "item": [
+        {
+          "name": "Sync Symbol Master",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/files/sync",
+              "host": ["{{apiUrl}}"],
+              "path": ["files", "sync"]
+            },
+            "description": "Download and sync latest symbol master data from Angel Broking"
+          },
+          "response": []
+        },
+        {
+          "name": "Search Symbols in Files",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/files/search?q=TCS&limit=10&exchange=NSE",
+              "host": ["{{apiUrl}}"],
+              "path": ["files", "search"],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "TCS",
+                  "description": "Search term"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Maximum results"
+                },
+                {
+                  "key": "exchange",
+                  "value": "NSE",
+                  "description": "Exchange filter"
+                }
+              ]
+            },
+            "description": "Search symbols in JSON files"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Symbol by Token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/files/symbol/2885",
+              "host": ["{{apiUrl}}"],
+              "path": ["files", "symbol", "2885"]
+            },
+            "description": "Get symbol information by token from files"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Popular Searches",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/files/popular-searches?limit=20",
+              "host": ["{{apiUrl}}"],
+              "path": ["files", "popular-searches"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Number of popular searches"
+                }
+              ]
+            },
+            "description": "Get most popular search terms"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Watchlist",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"My Portfolio\",\n  \"symbols\": [\n    {\n      \"token\": \"3045\",\n      \"symbol\": \"RELIANCE\",\n      \"name\": \"Reliance Industries Ltd\",\n      \"exchange\": \"NSE\"\n    },\n    {\n      \"token\": \"2885\",\n      \"symbol\": \"TCS\",\n      \"name\": \"Tata Consultancy Services Ltd\",\n      \"exchange\": \"NSE\"\n    }\n  ],\n  \"userId\": \"user123\"\n}"
+            },
+            "url": {
+              "raw": "{{apiUrl}}/files/watchlist",
+              "host": ["{{apiUrl}}"],
+              "path": ["files", "watchlist"]
+            },
+            "description": "Create a new watchlist with selected stocks"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Watchlists",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/files/watchlists?userId=user123",
+              "host": ["{{apiUrl}}"],
+              "path": ["files", "watchlists"],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "user123",
+                  "description": "User ID filter"
+                }
+              ]
+            },
+            "description": "Get all watchlists for a user"
+          },
+          "response": []
+        },
+        {
+          "name": "Add to Watchlist",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"1333\",\n  \"symbol\": \"HDFCBANK\",\n  \"name\": \"HDFC Bank Ltd\",\n  \"exchange\": \"NSE\"\n}"
+            },
+            "url": {
+              "raw": "{{apiUrl}}/files/watchlist/{{watchlistId}}/add",
+              "host": ["{{apiUrl}}"],
+              "path": ["files", "watchlist", "{{watchlistId}}", "add"]
+            },
+            "description": "Add a stock to existing watchlist"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Price History from Files",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/files/price-history/3045?days=30",
+              "host": ["{{apiUrl}}"],
+              "path": ["files", "price-history", "3045"],
+              "query": [
+                {
+                  "key": "days",
+                  "value": "30",
+                  "description": "Number of days"
+                }
+              ]
+            },
+            "description": "Get price history for a token from JSON files"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Collection Statistics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/files/stats",
+              "host": ["{{apiUrl}}"],
+              "path": ["files", "stats"]
+            },
+            "description": "Get statistics about all JSON file collections"
+          },
+          "response": []
+        },
+        {
+          "name": "Get File Information",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/files/files",
+              "host": ["{{apiUrl}}"],
+              "path": ["files", "files"]
+            },
+            "description": "Get information about all JSON data files (sizes, paths, etc.)"
+          },
+          "response": []
+        },
+        {
+          "name": "Export Symbols Collection",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/files/export/symbols?limit=1000&download=false",
+              "host": ["{{apiUrl}}"],
+              "path": ["files", "export", "symbols"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "1000",
+                  "description": "Number of records to export"
+                },
+                {
+                  "key": "download",
+                  "value": "false",
+                  "description": "Set to true to download as file"
+                }
+              ]
+            },
+            "description": "Export symbols collection data"
+          },
+          "response": []
+        },
+        {
+          "name": "Export Price History",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/files/export/prices?limit=500",
+              "host": ["{{apiUrl}}"],
+              "path": ["files", "export", "prices"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "500"
+                }
+              ]
+            },
+            "description": "Export price history data"
+          },
+          "response": []
+        },
+        {
+          "name": "Clear All Data Files",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/files/clear-all",
+              "host": ["{{apiUrl}}"],
+              "path": ["files", "clear-all"]
+            },
+            "description": "⚠️ WARNING: Clear all JSON data files (use with caution)"
+          },
+          "response": []
+        }
+      ],
+      "description": "File-based data management and JSON collection operations"
+    },
+    {
+      "name": "⚙️ System & Health",
+      "item": [
+        {
+          "name": "System Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/system/status",
+              "host": ["{{apiUrl}}"],
+              "path": ["system", "status"]
+            },
+            "description": "Get comprehensive system status including WebSocket, scheduler, and authentication"
+          },
+          "response": []
+        },
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}/system/health",
+              "host": ["{{apiUrl}}"],
+              "path": ["system", "health"]
+            },
+            "description": "Simple health check endpoint"
+          },
+          "response": []
+        },
+        {
+          "name": "API Root",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{apiUrl}}",
+              "host": ["{{apiUrl}}"]
+            },
+            "description": "Get API information and available endpoints"
+          },
+          "response": []
+        }
+      ],
+      "description": "System monitoring and health check endpoints"
+    },
+    {
+      "name": "🌐 Web Interfaces",
+      "item": [
+        {
+          "name": "Stock Viewer Interface",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/viewer",
+              "host": ["{{baseUrl}}"],
+              "path": ["viewer"]
+            },
+            "description": "Access the web-based stock viewer interface"
+          },
+          "response": []
+        },
+        {
+          "name": "Price Analytics Interface",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/analytics",
+              "host": ["{{baseUrl}}"],
+              "path": ["analytics"]
+            },
+            "description": "Access the comprehensive price analytics dashboard"
+          },
+          "response": []
+        },
+        {
+          "name": "WebSocket Test Page",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/index.html",
+              "host": ["{{baseUrl}}"],
+              "path": ["index.html"]
+            },
+            "description": "Access the WebSocket test page for real-time data"
+          },
+          "response": []
+        }
+      ],
+      "description": "Web interface endpoints for browser access"
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": ["// Auto-set timestamp for requests", "pm.globals.set('timestamp', new Date().toISOString());"]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Basic response validation",
+          "pm.test('Status code is successful', function () {",
+          "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);",
+          "});",
+          "",
+          "pm.test('Response time is acceptable', function () {",
+          "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+          "});",
+          "",
+          "// Try to parse JSON response",
+          "pm.test('Response is valid JSON', function () {",
+          "    try {",
+          "        pm.response.json();",
+          "    } catch (e) {",
+          "        pm.expect.fail('Response is not valid JSON');",
+          "    }",
+          "});"
+        ]
+      }
+    }
+  ]
+}

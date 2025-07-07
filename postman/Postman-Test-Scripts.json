@@ -1,0 +1,310 @@
+{
+  "info": {
+    "name": "Advanced Postman Test Scripts",
+    "description": "Advanced test scripts for comprehensive API testing"
+  },
+  "authenticationTests": {
+    "loginTest": {
+      "script": [
+        "pm.test('Login successful', function () {",
+        "    pm.response.to.have.status(200);",
+        "    const response = pm.response.json();",
+        "    pm.expect(response.success).to.be.true;",
+        "    pm.expect(response.authToken).to.exist;",
+        "    ",
+        "    // Store auth token for future requests",
+        "    if (response.authToken) {",
+        "        pm.environment.set('authToken', response.authToken);",
+        "    }",
+        "});",
+        "",
+        "pm.test('Response contains required fields', function () {",
+        "    const response = pm.response.json();",
+        "    pm.expect(response).to.have.property('loginTime');",
+        "    pm.expect(response).to.have.property('authToken');",
+        "    pm.expect(response).to.have.property('feedToken');",
+        "});"
+      ]
+    },
+    "statusTest": {
+      "script": [
+        "pm.test('Auth status response is valid', function () {",
+        "    pm.response.to.have.status(200);",
+        "    const response = pm.response.json();",
+        "    pm.expect(response.success).to.be.true;",
+        "    pm.expect(response.status).to.exist;",
+        "    pm.expect(response.status).to.have.property('authenticated');",
+        "});"
+      ]
+    }
+  },
+  "stockSearchTests": {
+    "searchValidation": {
+      "script": [
+        "pm.test('Search returns valid results', function () {",
+        "    pm.response.to.have.status(200);",
+        "    const response = pm.response.json();",
+        "    pm.expect(response.success).to.be.true;",
+        "    pm.expect(response.data).to.be.an('array');",
+        "    pm.expect(response.count).to.be.a('number');",
+        "});",
+        "",
+        "pm.test('Search results have required fields', function () {",
+        "    const response = pm.response.json();",
+        "    if (response.data.length > 0) {",
+        "        const stock = response.data[0];",
+        "        pm.expect(stock).to.have.property('token');",
+        "        pm.expect(stock).to.have.property('symbol');",
+        "        pm.expect(stock).to.have.property('name');",
+        "        pm.expect(stock).to.have.property('exchange');",
+        "    }",
+        "});",
+        "",
+        "pm.test('Search term matches results', function () {",
+        "    const response = pm.response.json();",
+        "    const searchTerm = pm.request.url.query.get('q');",
+        "    ",
+        "    if (response.data.length > 0 && searchTerm) {",
+        "        const stock = response.data[0];",
+        "        const termLower = searchTerm.toLowerCase();",
+        "        const symbolMatch = stock.symbol.toLowerCase().includes(termLower);",
+        "        const nameMatch = stock.name.toLowerCase().includes(termLower);",
+        "        ",
+        "        pm.expect(symbolMatch || nameMatch).to.be.true;",
+        "    }",
+        "});"
+      ]
+    }
+  },
+  "priceAnalyticsTests": {
+    "liveAnalyticsValidation": {
+      "script": [
+        "pm.test('Live analytics response is complete', function () {",
+        "    pm.response.to.have.status(200);",
+        "    const response = pm.response.json();",
+        "    pm.expect(response.success).to.be.true;",
+        "    pm.expect(response.data).to.exist;",
+        "});",
+        "",
+        "pm.test('Current price data is valid', function () {",
+        "    const response = pm.response.json();",
+        "    const currentPrice = response.data.currentPrice;",
+        "    ",
+        "    pm.expect(currentPrice).to.exist;",
+        "    pm.expect(currentPrice.ltp).to.be.a('number');",
+        "    pm.expect(currentPrice.open).to.be.a('number');",
+        "    pm.expect(currentPrice.high).to.be.a('number');",
+        "    pm.expect(currentPrice.low).to.be.a('number');",
+        "    pm.expect(currentPrice.volume).to.be.a('number');",
+        "});",
+        "",
+        "pm.test('Analytics data structure is correct', function () {",
+        "    const response = pm.response.json();",
+        "    const analytics = response.data.analytics;",
+        "    ",
+        "    pm.expect(analytics).to.exist;",
+        "    pm.expect(analytics.today).to.exist;",
+        "    pm.expect(analytics.week52).to.exist;",
+        "    pm.expect(analytics.technicalIndicators).to.exist;",
+        "});",
+        "",
+        "pm.test('52-week data is present', function () {",
+        "    const response = pm.response.json();",
+        "    const week52 = response.data.analytics.week52;",
+        "    ",
+        "    pm.expect(week52.high).to.be.a('number');",
+        "    pm.expect(week52.low).to.be.a('number');",
+        "    pm.expect(week52.high).to.be.above(week52.low);",
+        "});",
+        "",
+        "pm.test('Technical indicators are numeric', function () {",
+        "    const response = pm.response.json();",
+        "    const indicators = response.data.analytics.technicalIndicators;",
+        "    ",
+        "    if (indicators.rsi) {",
+        "        const rsi = parseFloat(indicators.rsi);",
+        "        pm.expect(rsi).to.be.within(0, 100);",
+        "    }",
+        "});"
+      ]
+    },
+    "bulkAnalyticsValidation": {
+      "script": [
+        "pm.test('Bulk analytics processes all tokens', function () {",
+        "    pm.response.to.have.status(200);",
+        "    const response = pm.response.json();",
+        "    const requestBody = JSON.parse(pm.request.body.raw);",
+        "    ",
+        "    pm.expect(response.success).to.be.true;",
+        "    pm.expect(response.data).to.be.an('array');",
+        "    pm.expect(response.count).to.equal(requestBody.tokens.length);",
+        "});",
+        "",
+        "pm.test('Each result has required analytics', function () {",
+        "    const response = pm.response.json();",
+        "    ",
+        "    response.data.forEach(function(stock) {",
+        "        if (!stock.error) {",
+        "            pm.expect(stock.symbol).to.exist;",
+        "            pm.expect(stock.currentPrice).to.exist;",
+        "            pm.expect(stock.analytics).to.exist;",
+        "        }",
+        "    });",
+        "});"
+      ]
+    }
+  },
+  "fileOperationTests": {
+    "syncValidation": {
+      "script": [
+        "pm.test('Symbol master sync successful', function () {",
+        "    pm.response.to.have.status(200);",
+        "    const response = pm.response.json();",
+        "    pm.expect(response.success).to.be.true;",
+        "    pm.expect(response.data.total).to.be.a('number');",
+        "    pm.expect(response.data.total).to.be.above(0);",
+        "});",
+        "",
+        "pm.test('Sync provides meaningful statistics', function () {",
+        "    const response = pm.response.json();",
+        "    const data = response.data;",
+        "    ",
+        "    pm.expect(data.syncTime).to.exist;",
+        "    pm.expect(data.filePath || data.total).to.exist;",
+        "});"
+      ]
+    },
+    "statsValidation": {
+      "script": [
+        "pm.test('File statistics are comprehensive', function () {",
+        "    pm.response.to.have.status(200);",
+        "    const response = pm.response.json();",
+        "    pm.expect(response.success).to.be.true;",
+        "    pm.expect(response.data.collections).to.exist;",
+        "});",
+        "",
+        "pm.test('Exchange statistics are present', function () {",
+        "    const response = pm.response.json();",
+        "    const exchanges = response.data.exchanges;",
+        "    ",
+        "    pm.expect(exchanges).to.be.an('array');",
+        "    if (exchanges.length > 0) {",
+        "        pm.expect(exchanges[0]).to.have.property('exchange');",
+        "        pm.expect(exchanges[0]).to.have.property('count');",
+        "    }",
+        "});"
+      ]
+    }
+  },
+  "performanceTests": {
+    "responseTimeTest": {
+      "script": [
+        "pm.test('Response time is acceptable', function () {",
+        "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+        "});",
+        "",
+        "pm.test('Response time for search is fast', function () {",
+        "    if (pm.request.url.path.includes('search')) {",
+        "        pm.expect(pm.response.responseTime).to.be.below(1000);",
+        "    }",
+        "});",
+        "",
+        "pm.test('Analytics response time is reasonable', function () {",
+        "    if (pm.request.url.path.includes('analytics')) {",
+        "        pm.expect(pm.response.responseTime).to.be.below(5000);",
+        "    }",
+        "});"
+      ]
+    }
+  },
+  "dataValidationTests": {
+    "priceDataValidation": {
+      "script": [
+        "pm.test('Price values are realistic', function () {",
+        "    const response = pm.response.json();",
+        "    ",
+        "    if (response.data && response.data.currentPrice) {",
+        "        const price = response.data.currentPrice;",
+        "        ",
+        "        // Basic sanity checks for Indian stock prices",
+        "        pm.expect(price.ltp).to.be.above(0);",
+        "        pm.expect(price.ltp).to.be.below(100000); // Max reasonable price",
+        "        ",
+        "        if (price.high && price.low) {",
+        "            pm.expect(price.high).to.be.at.least(price.low);",
+        "        }",
+        "        ",
+        "        if (price.volume) {",
+        "            pm.expect(price.volume).to.be.at.least(0);",
+        "        }",
+        "    }",
+        "});"
+      ]
+    },
+    "exchangeValidation": {
+      "script": [
+        "pm.test('Exchange values are valid', function () {",
+        "    const response = pm.response.json();",
+        "    const validExchanges = ['NSE', 'BSE', 'NFO', 'BFO', 'MCX', 'CDS'];",
+        "    ",
+        "    if (response.data) {",
+        "        if (Array.isArray(response.data)) {",
+        "            response.data.forEach(function(item) {",
+        "                if (item.exchange) {",
+        "                    pm.expect(validExchanges).to.include(item.exchange);",
+        "                }",
+        "            });",
+        "        } else if (response.data.exchange) {",
+        "            pm.expect(validExchanges).to.include(response.data.exchange);",
+        "        }",
+        "    }",
+        "});"
+      ]
+    }
+  },
+  "errorHandlingTests": {
+    "notFoundTest": {
+      "script": [
+        "pm.test('Not found errors are handled gracefully', function () {",
+        "    if (pm.response.code === 404) {",
+        "        const response = pm.response.json();",
+        "        pm.expect(response.success).to.be.false;",
+        "        pm.expect(response.message).to.exist;",
+        "    }",
+        "});"
+      ]
+    },
+    "unauthorizedTest": {
+      "script": [
+        "pm.test('Unauthorized errors provide clear message', function () {",
+        "    if (pm.response.code === 401) {",
+        "        const response = pm.response.json();",
+        "        pm.expect(response.success).to.be.false;",
+        "        pm.expect(response.message).to.include('auth');",
+        "    }",
+        "});"
+      ]
+    }
+  },
+  "setupScripts": {
+    "preRequestAuth": {
+      "script": [
+        "// Auto-add auth token if available",
+        "const authToken = pm.environment.get('authToken');",
+        "if (authToken && pm.request.url.path.join('/').includes('api/')) {",
+        "    pm.request.headers.add({",
+        "        key: 'Authorization',",
+        "        value: 'Bearer ' + authToken",
+        "    });",
+        "}"
+      ]
+    },
+    "timestampSetup": {
+      "script": [
+        "// Set current timestamp",
+        "pm.globals.set('timestamp', new Date().toISOString());",
+        "pm.globals.set('unixTimestamp', Math.floor(Date.now() / 1000));"
+      ]
+    }
+  }
+}

@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Analytics - Live Stock Data</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .search-section {
+            padding: 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .search-box button {
+            padding: 15px 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .search-box button:hover {
+            background: #5a6fd8;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #6c757d;
+            font-size: 1.2rem;
+        }
+
+        .stock-info {
+            display: none;
+        }
+
+        .stock-header {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .stock-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .stock-subtitle {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .price-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .price-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            border-left: 4px solid #667eea;
+        }
+
+        .price-card.positive {
+            border-left-color: #28a745;
+        }
+
+        .price-card.negative {
+            border-left-color: #dc3545;
+        }
+
+        .price-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .price-value.positive {
+            color: #28a745;
+        }
+
+        .price-value.negative {
+            color: #dc3545;
+        }
+
+        .price-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .analytics-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .analytics-card h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .analytics-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        .analytics-row:last-child {
+            border-bottom: none;
+        }
+
+        .analytics-label {
+            font-weight: 500;
+            color: #6c757d;
+        }
+
+        .analytics-value {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .chart-container h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .chart-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .chart-controls button {
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .chart-controls button.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .technical-indicators {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .indicator-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .indicator-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .indicator-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .trend-indicator {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .trend-bullish {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .trend-bearish {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .trend-neutral {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .price-overview {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-box {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Price Analytics</h1>
+            <p>Comprehensive Stock Price Analysis with Live Data</p>
+        </div>
+
+        <div class="search-section">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Enter stock symbol or name (e.g., RELIANCE, TCS, 3045)">
+                <button onclick="searchStock()">🔍 Analyze</button>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="loading" id="loading" style="display: none;">
+                📊 Loading price analytics...
+            </div>
+
+            <div class="error-message" id="errorMessage" style="display: none;">
+                <!-- Error message will be shown here -->
+            </div>
+
+            <div class="stock-info" id="stockInfo">
+                <div class="stock-header" id="stockHeader">
+                    <!-- Stock header will be populated here -->
+                </div>
+
+                <div class="price-overview" id="priceOverview">
+                    <!-- Price overview cards will be populated here -->
+                </div>
+
+                <div class="chart-container">
+                    <h3>📈 Price Chart</h3>
+                    <div class="chart-controls">
+                        <button class="active" onclick="changeChartPeriod('7D')">7D</button>
+                        <button onclick="changeChartPeriod('1M')">1M</button>
+                        <button onclick="changeChartPeriod('3M')">3M</button>
+                        <button onclick="changeChartPeriod('1Y')">1Y</button>
+                    </div>
+                    <canvas id="priceChart" width="400" height="200"></canvas>
+                </div>
+
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <h3>📅 Today's Performance</h3>
+                        <div id="todayAnalytics">
+                            <!-- Today's analytics will be populated here -->
+                        </div>
+                    </div>
+
+                    <div class="analytics-card">
+                        <h3>📊 Period Analysis</h3>
+                        <div id="periodAnalytics">
+                            <!-- Period analytics will be populated here -->
+                        </div>
+                    </div>
+
+                    <div class="analytics-card">
+                        <h3>📈 52-Week Range</h3>
+                        <div id="weekAnalytics">
+                            <!-- 52-week analytics will be populated here -->
+                        </div>
+                    </div>
+
+                    <div class="analytics-card">
+                        <h3>🔧 Technical Indicators</h3>
+                        <div class="technical-indicators" id="technicalIndicators">
+                            <!-- Technical indicators will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStock = null;
+        let priceChart = null;
+        let currentChartPeriod = '7D';
+
+        // Initialize
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchStock();
+            }
+        });
+
+        async function searchStock() {
+            const searchTerm = document.getElementById('searchInput').value.trim();
+            
+            if (!searchTerm) {
+                showError('Please enter a stock symbol or name');
+                return;
+            }
+
+            showLoading(true);
+            hideError();
+            hideStockInfo();
+
+            try {
+                const response = await fetch(`/api/analytics/live/${encodeURIComponent(searchTerm)}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    currentStock = data.data;
+                    displayStockAnalytics(data.data);
+                    await loadPriceChart(data.data.stock.token, currentChartPeriod);
+                } else {
+                    showError(data.message || 'Stock not found');
+                }
+            } catch (error) {
+                console.error('Error searching stock:', error);
+                showError('Error loading stock data. Please try again.');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function displayStockAnalytics(data) {
+            // Stock header
+            const stockHeader = document.getElementById('stockHeader');
+            const changeClass = data.currentPrice.change >= 0 ? 'positive' : 'negative';
+            const changeSymbol = data.currentPrice.change >= 0 ? '+' : '';
+            
+            stockHeader.innerHTML = `
+                <div class="stock-title">${data.stock.symbol} - ${data.stock.name}</div>
+                <div class="stock-subtitle">
+                    ${data.stock.exchange} | Token: ${data.stock.token} | 
+                    Last Updated: ${new Date(data.timestamp).toLocaleString()}
+                </div>
+            `;
+
+            // Price overview
+            const priceOverview = document.getElementById('priceOverview');
+            priceOverview.innerHTML = `
+                <div class="price-card ${data.currentPrice.change >= 0 ? 'positive' : 'negative'}">
+                    <div class="price-value ${data.currentPrice.change >= 0 ? 'positive' : 'negative'}">
+                        ₹${data.currentPrice.ltp.toFixed(2)}
+                    </div>
+                    <div class="price-label">Current Price</div>
+                </div>
+                <div class="price-card ${data.currentPrice.change >= 0 ? 'positive' : 'negative'}">
+                    <div class="price-value ${data.currentPrice.change >= 0 ? 'positive' : 'negative'}">
+                        ${changeSymbol}₹${data.currentPrice.change.toFixed(2)}
+                    </div>
+                    <div class="price-label">Change</div>
+                </div>
+                <div class="price-card ${data.currentPrice.changePercent >= 0 ? 'positive' : 'negative'}">
+                    <div class="price-value ${data.currentPrice.changePercent >= 0 ? 'positive' : 'negative'}">
+                        ${changeSymbol}${data.currentPrice.changePercent.toFixed(2)}%
+                    </div>
+                    <div class="price-label">Change %</div>
+                </div>
+                <div class="price-card">
+                    <div class="price-value">₹${data.currentPrice.open.toFixed(2)}</div>
+                    <div class="price-label">Open</div>
+                </div>
+                <div class="price-card">
+                    <div class="price-value">₹${data.currentPrice.high.toFixed(2)}</div>
+                    <div class="price-label">Day High</div>
+                </div>
+                <div class="price-card">
+                    <div class="price-value">₹${data.currentPrice.low.toFixed(2)}</div>
+                    <div class="price-label">Day Low</div>
+                </div>
+                <div class="price-card">
+                    <div class="price-value">${data.currentPrice.volume.toLocaleString()}</div>
+                    <div class="price-label">Volume</div>
+                </div>
+                <div class="price-card">
+                    <div class="price-value">₹${data.currentPrice.avgPrice.toFixed(2)}</div>
+                    <div class="price-label">Avg Price</div>
+                </div>
+            `;
+
+            // Today's analytics
+            const todayAnalytics = document.getElementById('todayAnalytics');
+            todayAnalytics.innerHTML = `
+                <div class="analytics-row">
+                    <span class="analytics-label">Day Range</span>
+                    <span class="analytics-value">${data.analytics.today.dayRange}</span>
+                </div>
+                <div class="analytics-row">
+                    <span class="analytics-label">Range %</span>
+                    <span class="analytics-value">${data.analytics.today.dayRangePercent}%</span>
+                </div>
+                <div class="analytics-row">
+                    <span class="analytics-label">Upper Circuit</span>
+                    <span class="analytics-value">₹${data.currentPrice.upperCircuit.toFixed(2)}</span>
+                </div>
+                <div class="analytics-row">
+                    <span class="analytics-label">Lower Circuit</span>
+                    <span class="analytics-value">₹${data.currentPrice.lowerCircuit.toFixed(2)}</span>
+                </div>
+            `;
+
+            // Period analytics
+            const periodAnalytics = document.getElementById('periodAnalytics');
+            periodAnalytics.innerHTML = `
+                <div class="analytics-row">
+                    <span class="analytics-label">Week High</span>
+                    <span class="analytics-value">₹${data.analytics.week.high.toFixed(2)}</span>
+                </div>
+                <div class="analytics-row">
+                    <span class="analytics-label">Week Low</span>
+                    <span class="analytics-value">₹${data.analytics.week.low.toFixed(2)}</span>
+                </div>
+                <div class="analytics-row">
+                    <span class="analytics-label">Month High</span>
+                    <span class="analytics-value">₹${data.analytics.month.high.toFixed(2)}</span>
+                </div>
+                <div class="analytics-row">
+                    <span class="analytics-label">Month Low</span>
+                    <span class="analytics-value">₹${data.analytics.month.low.toFixed(2)}</span>
+                </div>
+                <div class="analytics-row">
+                    <span class="analytics-label">Month Trend</span>
+                    <span class="analytics-value">
+                        <span class="trend-indicator trend-${data.analytics.month.trend}">
+                            ${data.analytics.month.trend.toUpperCase()}
+                        </span>
+                    </span>
+                </div>
+            `;
+
+            // 52-week analytics
+            const weekAnalytics = document.getElementById('weekAnalytics');
+            weekAnalytics.innerHTML = `
+                <div class="analytics-row">
+                    <span class="analytics-label">52W High</span>
+                    <span class="analytics-value">₹${data.analytics.week52.high.toFixed(2)}</span>
+                </div>
+                <div class="analytics-row">
+                    <span class="analytics-label">52W Low</span>
+                    <span class="analytics-value">₹${data.analytics.week52.low.toFixed(2)}</span>
+                </div>
+                <div class="analytics-row">
+                    <span class="analytics-label">From High</span>
+                    <span class="analytics-value ${data.analytics.week52.currentVsHigh >= 0 ? 'positive' : 'negative'}">
+                        ${data.analytics.week52.currentVsHigh}%
+                    </span>
+                </div>
+                <div class="analytics-row">
+                    <span class="analytics-label">From Low</span>
+                    <span class="analytics-value ${data.analytics.week52.currentVsLow >= 0 ? 'positive' : 'negative'}">
+                        ${data.analytics.week52.currentVsLow}%
+                    </span>
+                </div>
+            `;
+
+            // Technical indicators
+            const technicalIndicators = document.getElementById('technicalIndicators');
+            technicalIndicators.innerHTML = `
+                <div class="indicator-card">
+                    <div class="indicator-value">${data.analytics.technicalIndicators.sma20}</div>
+                    <div class="indicator-label">SMA 20</div>
+                </div>
+                <div class="indicator-card">
+                    <div class="indicator-value">${data.analytics.technicalIndicators.sma50}</div>
+                    <div class="indicator-label">SMA 50</div>
+                </div>
+                <div class="indicator-card">
+                    <div class="indicator-value">${data.analytics.technicalIndicators.ema12}</div>
+                    <div class="indicator-label">EMA 12</div>
+                </div>
+                <div class="indicator-card">
+                    <div class="indicator-value">${data.analytics.technicalIndicators.ema26}</div>
+                    <div class="indicator-label">EMA 26</div>
+                </div>
+                <div class="indicator-card">
+                    <div class="indicator-value">${data.analytics.technicalIndicators.rsi}</div>
+                    <div class="indicator-label">RSI</div>
+                </div>
+                <div class="indicator-card">
+                    <div class="indicator-value">${data.analytics.technicalIndicators.macd}</div>
+                    <div class="indicator-label">MACD</div>
+                </div>
+            `;
+
+            showStockInfo();
+        }
+
+        async function loadPriceChart(token, period) {
+            try {
+                let days = 7;
+                switch(period) {
+                    case '1M': days = 30; break;
+                    case '3M': days = 90; break;
+                    case '1Y': days = 365; break;
+                    default: days = 7;
+                }
+
+                const response = await fetch(`/api/analytics/history/${token}?days=${days}`);
+                const data = await response.json();
+
+                if (data.success && data.data.history.length > 0) {
+                    displayPriceChart(data.data.history);
+                } else {
+                    displayEmptyChart();
+                }
+            } catch (error) {
+                console.error('Error loading price chart:', error);
+                displayEmptyChart();
+            }
+        }
+
+        function displayPriceChart(historyData) {
+            const ctx = document.getElementById('priceChart').getContext('2d');
+            
+            if (priceChart) {
+                priceChart.destroy();
+            }
+
+            const labels = historyData.map(d => new Date(d.timestamp).toLocaleDateString()).reverse();
+            const prices = historyData.map(d => d.priceData.ltp).reverse();
+
+            priceChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Price',
+                        data: prices,
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            ticks: {
+                                callback: function(value) {
+                                    return '₹' + value.toFixed(2);
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Price: ₹' + context.parsed.y.toFixed(2);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function displayEmptyChart() {
+            const ctx = document.getElementById('priceChart').getContext('2d');
+            
+            if (priceChart) {
+                priceChart.destroy();
+            }
+
+            priceChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['No Data'],
+                    datasets: [{
+                        label: 'Price',
+                        data: [0],
+                        borderColor: '#ccc',
+                        backgroundColor: 'rgba(204, 204, 204, 0.1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+
+        async function changeChartPeriod(period) {
+            // Update active button
+            document.querySelectorAll('.chart-controls button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            currentChartPeriod = period;
+            
+            if (currentStock) {
+                await loadPriceChart(currentStock.stock.token, period);
+            }
+        }
+
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+
+        function hideError() {
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        function showStockInfo() {
+            document.getElementById('stockInfo').style.display = 'block';
+        }
+
+        function hideStockInfo() {
+            document.getElementById('stockInfo').style.display = 'none';
+        }
+
+        // Auto-refresh every 30 seconds if stock is loaded
+        setInterval(() => {
+            if (currentStock) {
+                const searchTerm = document.getElementById('searchInput').value.trim();
+                if (searchTerm) {
+                    searchStock();
+                }
+            }
+        }, 30000);
+    </script>
+</body>
+</html>
