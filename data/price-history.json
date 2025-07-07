@@ -1,0 +1,618 @@
+[
+  {
+    "id": "500325_1751872418284",
+    "token": "500325",
+    "symbol": "RELIANCE",
+    "exchange": "BSE",
+    "priceData": {
+      "ltp": 1538.9,
+      "open": 1525.25,
+      "high": 1539,
+      "low": 1525.25,
+      "close": 1527.4,
+      "volume": 237497,
+      "change": 11.5,
+      "changePercent": 0.75
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": "0.00"
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-07T07:13:38.284Z",
+    "timestampMs": 1751872418284
+  },
+  {
+    "id": "99926025_1751872334462",
+    "token": "99926025",
+    "symbol": "Nifty PSU Bank",
+    "exchange": "NSE",
+    "priceData": {
+      "ltp": 7168.1,
+      "open": 7150.45,
+      "high": 7212.45,
+      "low": 7127.3,
+      "close": 7152.95,
+      "volume": 0,
+      "change": 15.15,
+      "changePercent": 0.21
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": 0
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-07T07:12:14.462Z",
+    "timestampMs": 1751872334462
+  },
+  {
+    "id": "99926024_1751872334371",
+    "token": "99926024",
+    "symbol": "Nifty PSE",
+    "exchange": "NSE",
+    "priceData": {
+      "ltp": 10087.35,
+      "open": 10120.05,
+      "high": 10121.25,
+      "low": 10065.95,
+      "close": 10109.35,
+      "volume": 0,
+      "change": -22,
+      "changePercent": -0.22
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": 0
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-07T07:12:14.371Z",
+    "timestampMs": 1751872334371
+  },
+  {
+    "id": "99926023_1751872334173",
+    "token": "99926023",
+    "symbol": "Nifty Pharma",
+    "exchange": "NSE",
+    "priceData": {
+      "ltp": 22334.35,
+      "open": 22401.55,
+      "high": 22418.2,
+      "low": 22262.4,
+      "close": 22384.6,
+      "volume": 0,
+      "change": -50.25,
+      "changePercent": -0.22
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": 0
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-07T07:12:14.173Z",
+    "timestampMs": 1751872334173
+  },
+  {
+    "id": "99926018_1751872333939",
+    "token": "99926018",
+    "symbol": "Nifty Realty",
+    "exchange": "NSE",
+    "priceData": {
+      "ltp": 972.3,
+      "open": 972.15,
+      "high": 976.8,
+      "low": 965.85,
+      "close": 971.95,
+      "volume": 0,
+      "change": 0.35,
+      "changePercent": 0.04
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": 0
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-07T07:12:13.939Z",
+    "timestampMs": 1751872333939
+  },
+  {
+    "id": "99926017_1751872333857",
+    "token": "99926017",
+    "symbol": "India VIX",
+    "exchange": "NSE",
+    "priceData": {
+      "ltp": 12.54,
+      "open": 12.32,
+      "high": 12.79,
+      "low": 11.94,
+      "close": 12.32,
+      "volume": 0,
+      "change": 0.22,
+      "changePercent": 1.79
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": 0
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-07T07:12:13.857Z",
+    "timestampMs": 1751872333857
+  },
+  {
+    "id": "99926016_1751872333775",
+    "token": "99926016",
+    "symbol": "HangSeng BeES-NAV",
+    "exchange": "NSE",
+    "priceData": {
+      "ltp": 2297.11,
+      "open": 0,
+      "high": 0,
+      "low": 0,
+      "close": 2297.11,
+      "volume": 0,
+      "change": 2297.11,
+      "changePercent": 0
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": 0
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-07T07:12:13.775Z",
+    "timestampMs": 1751872333775
+  },
+  {
+    "id": "99926014_1751872333688",
+    "token": "99926014",
+    "symbol": "Nifty Midcap 50",
+    "exchange": "NSE",
+    "priceData": {
+      "ltp": 16817.9,
+      "open": 16851.05,
+      "high": 16878.7,
+      "low": 16778.1,
+      "close": 16841.15,
+      "volume": 0,
+      "change": -23.25,
+      "changePercent": -0.14
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": 0
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-07T07:12:13.688Z",
+    "timestampMs": 1751872333688
+  },
+  {
+    "id": "99926013_1751872333606",
+    "token": "99926013",
+    "symbol": "Nifty Next 50",
+    "exchange": "NSE",
+    "priceData": {
+      "ltp": 68667.35,
+      "open": 68692.85,
+      "high": 68869.95,
+      "low": 68544.6,
+      "close": 68607.8,
+      "volume": 0,
+      "change": 59.55,
+      "changePercent": 0.09
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": 0
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-07T07:12:13.606Z",
+    "timestampMs": 1751872333606
+  },
+  {
+    "id": "99926012_1751872333525",
+    "token": "99926012",
+    "symbol": "Nifty 100",
+    "exchange": "NSE",
+    "priceData": {
+      "ltp": 26058.75,
+      "open": 26063.2,
+      "high": 26106.7,
+      "low": 26018.4,
+      "close": 26066.65,
+      "volume": 0,
+      "change": -7.9,
+      "changePercent": -0.03
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": 0
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-07T07:12:13.525Z",
+    "timestampMs": 1751872333525
+  },
+  {
+    "id": "99926011_1751872333443",
+    "token": "99926011",
+    "symbol": "NIFTY MIDCAP 100",
+    "exchange": "NSE",
+    "priceData": {
+      "ltp": 59556.75,
+      "open": 59711.15,
+      "high": 59758.05,
+      "low": 59468.1,
+      "close": 59677.75,
+      "volume": 0,
+      "change": -121,
+      "changePercent": -0.2
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": 0
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-07T07:12:13.443Z",
+    "timestampMs": 1751872333443
+  },
+  {
+    "id": "99926009_1751872333357",
+    "token": "99926009",
+    "symbol": "Nifty Bank",
+    "exchange": "NSE",
+    "priceData": {
+      "ltp": 56947.6,
+      "open": 56938.7,
+      "high": 57152.2,
+      "low": 56854.05,
+      "close": 57031.9,
+      "volume": 0,
+      "change": -84.3,
+      "changePercent": -0.15
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": 0
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-07T07:12:13.357Z",
+    "timestampMs": 1751872333357
+  },
+  {
+    "id": "99926008_1751872333275",
+    "token": "99926008",
+    "symbol": "Nifty IT",
+    "exchange": "NSE",
+    "priceData": {
+      "ltp": 38918.8,
+      "open": 39146.15,
+      "high": 39176.65,
+      "low": 38899.45,
+      "close": 39166.55,
+      "volume": 0,
+      "change": -247.75,
+      "changePercent": -0.63
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": 0
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-07T07:12:13.275Z",
+    "timestampMs": 1751872333275
+  },
+  {
+    "id": "99926004_1751872333188",
+    "token": "99926004",
+    "symbol": "Nifty 500",
+    "exchange": "NSE",
+    "priceData": {
+      "ltp": 23537.6,
+      "open": 23561.6,
+      "high": 23595.3,
+      "low": 23506.5,
+      "close": 23562.45,
+      "volume": 0,
+      "change": -24.85,
+      "changePercent": -0.11
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": 0
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-07T07:12:13.188Z",
+    "timestampMs": 1751872333188
+  },
+  {
+    "id": "99926002_1751872333104",
+    "token": "99926002",
+    "symbol": "Nifty50 PR 2x Lev",
+    "exchange": "NSE",
+    "priceData": {
+      "ltp": 14353.95,
+      "open": 14357.1,
+      "high": 14401.35,
+      "low": 14309.35,
+      "close": 14374.85,
+      "volume": 0,
+      "change": -20.9,
+      "changePercent": -0.15
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": 0
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-07T07:12:13.104Z",
+    "timestampMs": 1751872333104
+  },
+  {
+    "id": "99926001_1751872333022",
+    "token": "99926001",
+    "symbol": "Nifty GrowSect 15",
+    "exchange": "NSE",
+    "priceData": {
+      "ltp": 11669.5,
+      "open": 11635.55,
+      "high": 11686,
+      "low": 11625.7,
+      "close": 11629.05,
+      "volume": 0,
+      "change": 40.45,
+      "changePercent": 0.35
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": 0
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-07T07:12:13.022Z",
+    "timestampMs": 1751872333022
+  },
+  {
+    "id": "99926000_1751872332941",
+    "token": "99926000",
+    "symbol": "Nifty 50",
+    "exchange": "NSE",
+    "priceData": {
+      "ltp": 25447.65,
+      "open": 25450.45,
+      "high": 25489.8,
+      "low": 25407.25,
+      "close": 25461,
+      "volume": 0,
+      "change": -13.35,
+      "changePercent": -0.05
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": 0
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-07T07:12:12.941Z",
+    "timestampMs": 1751872332941
+  },
+  {
+    "id": "544207_1751872117937",
+    "token": "544207",
+    "symbol": "RELIABLE",
+    "exchange": "BSE",
+    "priceData": {
+      "ltp": 73.32,
+      "open": 73.66,
+      "high": 75.37,
+      "low": 73.32,
+      "close": 73.32,
+      "volume": 183,
+      "change": 0,
+      "changePercent": 0
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": 0
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-07T07:08:37.937Z",
+    "timestampMs": 1751872117937
+  },
+  {
+    "id": "500325_1751872086759",
+    "token": "500325",
+    "symbol": "RELIANCE",
+    "exchange": "BSE",
+    "priceData": {
+      "ltp": 1538.3,
+      "open": 1525.25,
+      "high": 1539,
+      "low": 1525.25,
+      "close": 1527.4,
+      "volume": 234344,
+      "change": 10.9,
+      "changePercent": 0.71
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": 0
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-07T07:08:06.759Z",
+    "timestampMs": 1751872086759
+  },
+  {
+    "id": "756992_1751872038847",
+    "token": "756992",
+    "symbol": "755TPREL40-N0",
+    "exchange": "NSE",
+    "priceData": {
+      "ltp": 0,
+      "open": 0,
+      "high": 0,
+      "low": 0,
+      "close": 0,
+      "volume": 0,
+      "change": 0,
+      "changePercent": 0
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": 0
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-07T07:07:18.847Z",
+    "timestampMs": 1751872038847
+  },
+  {
+    "id": "500325_1751871960949",
+    "token": "500325",
+    "symbol": "RELIANCE",
+    "exchange": "BSE",
+    "priceData": {
+      "ltp": 1538.7,
+      "open": 1525.25,
+      "high": 1539,
+      "low": 1525.25,
+      "close": 1527.4,
+      "volume": 233768,
+      "change": 11.3,
+      "changePercent": 0.74
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": 0
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-07T07:06:00.949Z",
+    "timestampMs": 1751871960949
+  },
+  {
+    "id": "3045_1751871950999",
+    "token": "3045",
+    "symbol": "SBIN-EQ",
+    "exchange": "NSE",
+    "priceData": {
+      "ltp": 808.25,
+      "open": 811.2,
+      "high": 812.65,
+      "low": 807.05,
+      "close": 811.85,
+      "volume": 1849865,
+      "change": -3.6,
+      "changePercent": -0.44
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": 0
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-07T07:05:50.999Z",
+    "timestampMs": 1751871950999
+  }
+]

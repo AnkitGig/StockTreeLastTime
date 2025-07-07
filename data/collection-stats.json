@@ -1,0 +1,107 @@
+{
+  "metadata": {
+    "lastUpdated": "2025-07-07T07:01:53.874Z",
+    "version": "1.0"
+  },
+  "collections": {
+    "symbols": 125326,
+    "searches": 11,
+    "priceHistory": 0,
+    "watchLists": 0
+  },
+  "exchanges": [
+    {
+      "exchange": "BFO",
+      "count": 42763
+    },
+    {
+      "exchange": "NFO",
+      "count": 31759
+    },
+    {
+      "exchange": "MCX",
+      "count": 13538
+    },
+    {
+      "exchange": "BSE",
+      "count": 12366
+    },
+    {
+      "exchange": "CDS",
+      "count": 9336
+    },
+    {
+      "exchange": "NSE",
+      "count": 8259
+    },
+    {
+      "exchange": "NCO",
+      "count": 5787
+    },
+    {
+      "exchange": "NCDEX",
+      "count": 1518
+    }
+  ],
+  "recentSearches": [
+    {
+      "term": "RELIANCE",
+      "found": false,
+      "time": "2025-07-07T07:01:12.845Z"
+    },
+    {
+      "term": "3045",
+      "found": false,
+      "time": "2025-07-07T06:58:59.734Z"
+    },
+    {
+      "term": "RELIANCE",
+      "found": false,
+      "time": "2025-07-07T06:58:55.394Z"
+    },
+    {
+      "term": "HDFC",
+      "found": false,
+      "time": "2025-07-07T06:58:48.601Z"
+    },
+    {
+      "term": "RELIANCE",
+      "found": false,
+      "time": "2025-07-07T06:57:44.484Z"
+    },
+    {
+      "term": "RELIANCE",
+      "found": false,
+      "time": "2025-07-07T06:57:09.247Z"
+    },
+    {
+      "term": "RELIANCE",
+      "found": false,
+      "time": "2025-07-07T06:56:48.676Z"
+    },
+    {
+      "term": "RELIANCE",
+      "found": false,
+      "time": "2025-07-07T06:56:00.598Z"
+    },
+    {
+      "term": "HDFC",
+      "found": false,
+      "time": "2025-07-07T06:55:17.550Z"
+    },
+    {
+      "term": "RELIANCE",
+      "found": false,
+      "time": "2025-07-07T06:54:37.239Z"
+    }
+  ],
+  "lastSyncTime": "2025-07-07T07:01:53.861Z",
+  "filePaths": {
+    "symbolMaster": "D:\\stockTreeDataFetch\\data\\symbol-master.json",
+    "searchHistory": "D:\\stockTreeDataFetch\\data\\search-history.json",
+    "priceHistory": "D:\\stockTreeDataFetch\\data\\price-history.json",
+    "watchLists": "D:\\stockTreeDataFetch\\data\\watchlists.json",
+    "popularSearches": "D:\\stockTreeDataFetch\\data\\popular-searches.json",
+    "stats": "D:\\stockTreeDataFetch\\data\\collection-stats.json"
+  }
+}

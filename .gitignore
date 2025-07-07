@@ -11,9 +11,9 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
-# JSON Data Files
-data/
-*.json.backup
+# # JSON Data Files
+# data/
+# *.json.backup
 
 # Logs
 logs/
