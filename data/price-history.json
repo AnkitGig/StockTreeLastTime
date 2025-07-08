@@ -1,5 +1,33 @@
 [
   {
+    "id": "500325_1751956042726",
+    "token": "500325",
+    "symbol": "RELIANCE",
+    "exchange": "BSE",
+    "priceData": {
+      "ltp": 1541.9,
+      "open": 1535,
+      "high": 1542.65,
+      "low": 1533.5,
+      "close": 1541.2,
+      "volume": 98127,
+      "change": 0.7,
+      "changePercent": 0.05
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": "0.52"
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-08T06:27:22.726Z",
+    "timestampMs": 1751956042726
+  },
+  {
     "id": "500325_1751872418284",
     "token": "500325",
     "symbol": "RELIANCE",
