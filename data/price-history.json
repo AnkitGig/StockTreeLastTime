@@ -1,5 +1,257 @@
 [
   {
+    "id": "532977_1752036835720",
+    "token": "532977",
+    "symbol": "BAJAJ-AUTO",
+    "exchange": "BSE",
+    "priceData": {
+      "ltp": 8356.1,
+      "open": 8374.8,
+      "high": 8374.8,
+      "low": 8324.5,
+      "close": 8344.5,
+      "volume": 1173,
+      "change": 11.6,
+      "changePercent": 0.14
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": 0
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-09T04:53:55.720Z",
+    "timestampMs": 1752036835720
+  },
+  {
+    "id": "500325_1752036812634",
+    "token": "500325",
+    "symbol": "RELIANCE",
+    "exchange": "BSE",
+    "priceData": {
+      "ltp": 1542.8,
+      "open": 1531.05,
+      "high": 1545.5,
+      "low": 1531.05,
+      "close": 1538.8,
+      "volume": 59667,
+      "change": 4,
+      "changePercent": 0.26
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": "1.27"
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-09T04:53:32.634Z",
+    "timestampMs": 1752036812634
+  },
+  {
+    "id": "508869_1752036704958",
+    "token": "508869",
+    "symbol": "APOLLOHOSP",
+    "exchange": "BSE",
+    "priceData": {
+      "ltp": 7536.5,
+      "open": 7565.75,
+      "high": 7565.75,
+      "low": 7521.1,
+      "close": 7567.15,
+      "volume": 1189,
+      "change": -30.65,
+      "changePercent": -0.41
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": 0
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-09T04:51:44.958Z",
+    "timestampMs": 1752036704958
+  },
+  {
+    "id": "500325_1752036674233",
+    "token": "500325",
+    "symbol": "RELIANCE",
+    "exchange": "BSE",
+    "priceData": {
+      "ltp": 1542.05,
+      "open": 1531.05,
+      "high": 1545.5,
+      "low": 1531.05,
+      "close": 1538.8,
+      "volume": 58243,
+      "change": 3.25,
+      "changePercent": 0.21
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": "1.33"
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-09T04:51:14.233Z",
+    "timestampMs": 1752036674233
+  },
+  {
+    "id": "500325_1751956759005",
+    "token": "500325",
+    "symbol": "RELIANCE",
+    "exchange": "BSE",
+    "priceData": {
+      "ltp": 1540.85,
+      "open": 1535,
+      "high": 1542.65,
+      "low": 1533.5,
+      "close": 1541.2,
+      "volume": 101363,
+      "change": -0.35,
+      "changePercent": -0.02
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": "1.45"
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-08T06:39:19.005Z",
+    "timestampMs": 1751956759005
+  },
+  {
+    "id": "500325_1751956732465",
+    "token": "500325",
+    "symbol": "RELIANCE",
+    "exchange": "BSE",
+    "priceData": {
+      "ltp": 1540.7,
+      "open": 1535,
+      "high": 1542.65,
+      "low": 1533.5,
+      "close": 1541.2,
+      "volume": 101356,
+      "change": -0.5,
+      "changePercent": -0.03
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": "1.38"
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-08T06:38:52.465Z",
+    "timestampMs": 1751956732465
+  },
+  {
+    "id": "532540_1751956656544",
+    "token": "532540",
+    "symbol": "TCS",
+    "exchange": "BSE",
+    "priceData": {
+      "ltp": 3407.6,
+      "open": 3410,
+      "high": 3420,
+      "low": 3394.05,
+      "close": 3411.95,
+      "volume": 60622,
+      "change": -4.35,
+      "changePercent": -0.13
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": 0
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-08T06:37:36.544Z",
+    "timestampMs": 1751956656544
+  },
+  {
+    "id": "532540_1751956372480",
+    "token": "532540",
+    "symbol": "TCS",
+    "exchange": "BSE",
+    "priceData": {
+      "ltp": 3407.9,
+      "open": 3410,
+      "high": 3420,
+      "low": 3394.05,
+      "close": 3411.95,
+      "volume": 60216,
+      "change": -4.05,
+      "changePercent": -0.12
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": 0
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-08T06:32:52.480Z",
+    "timestampMs": 1751956372480
+  },
+  {
+    "id": "500325_1751956089345",
+    "token": "500325",
+    "symbol": "RELIANCE",
+    "exchange": "BSE",
+    "priceData": {
+      "ltp": 1541.8,
+      "open": 1535,
+      "high": 1542.65,
+      "low": 1533.5,
+      "close": 1541.2,
+      "volume": 98128,
+      "change": 0.6,
+      "changePercent": 0.04
+    },
+    "technicalIndicators": {
+      "sma20": 0,
+      "sma50": 0,
+      "ema12": 0,
+      "ema26": 0,
+      "rsi": 0,
+      "macd": 0,
+      "volatility": "1.47"
+    },
+    "dataSource": "SMARTAPI",
+    "timestamp": "2025-07-08T06:28:09.345Z",
+    "timestampMs": 1751956089345
+  },
+  {
     "id": "500325_1751956042726",
     "token": "500325",
     "symbol": "RELIANCE",

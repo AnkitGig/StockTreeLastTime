@@ -49,18 +49,12 @@ class JsonFileService {
   }
 
   /**
-   * Write JSON file with formatting
+   * Write JSON file with formatting (DISABLED: No data will be saved)
    */
   async writeJsonFile(filePath, data) {
-    try {
-      await this.ensureDataDirectory()
-      const jsonString = JSON.stringify(data, null, 2)
-      await fs.writeFile(filePath, jsonString, "utf8")
-      return true
-    } catch (error) {
-      console.error(`❌ Error writing ${filePath}:`, error.message)
-      throw error
-    }
+    // Data saving is disabled as per request
+    console.warn(`⚠️ Data save is disabled. Skipping write to ${filePath}`)
+    return true
   }
 
   /**

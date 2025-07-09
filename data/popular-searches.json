@@ -1,13 +1,28 @@
 {
   "metadata": {
-    "totalUniqueSearches": 6,
-    "lastUpdated": "2025-07-08T06:27:22.605Z"
+    "totalUniqueSearches": 9,
+    "lastUpdated": "2025-07-09T04:53:55.611Z"
   },
   "data": [
     {
       "searchTerm": "reliance",
-      "count": 15,
-      "lastSearched": "2025-07-08T06:27:22.587Z"
+      "count": 20,
+      "lastSearched": "2025-07-09T04:53:32.509Z"
+    },
+    {
+      "searchTerm": "tcs",
+      "count": 3,
+      "lastSearched": "2025-07-08T06:38:38.093Z"
+    },
+    {
+      "searchTerm": "bajaj",
+      "count": 1,
+      "lastSearched": "2025-07-09T04:53:55.593Z"
+    },
+    {
+      "searchTerm": "apollohosp",
+      "count": 1,
+      "lastSearched": "2025-07-09T04:51:44.830Z"
     },
     {
       "searchTerm": "hdfc",
